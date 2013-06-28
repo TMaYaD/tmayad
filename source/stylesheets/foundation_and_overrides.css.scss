@@ -1,3 +1,6 @@
+@charset 'UTF-8';
+
+@import 'foundation/variables';
 //
 // Foundation Variables
 //
@@ -1271,7 +1274,7 @@ $default-float: left;
 // $topbar-sticky-class: ".sticky";
 
 // Import all of foundation css
-@import "foundation";
+// @import "foundation";
 
 // OR:
 // @import "foundation/components/global"; // *always required
