@@ -6,6 +6,7 @@ gem 'middleman', '~>3.0.13'
 gem 'middleman-sprockets'
 
 gem 'haml'
+gem 'jquery-sprockets', github: 'TMaYaD/jquery-sprockets'
 gem 'sass'
 gem 'zurb-foundation'
 

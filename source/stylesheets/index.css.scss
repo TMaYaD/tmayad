@@ -1,0 +1,25 @@
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
+
+.index {
+  #banner {
+    height: 60%;
+    background-image: image-url('cover-photo.jpg');
+  }
+
+  #projects {
+    height: 90%;
+
+    li a { -webkit-transform: scale(1,1); }
+
+    li h4{
+      border: solid thin lightgray;
+      @include border-radius(50%);
+    }
+    // Temp
+    li h4 {
+      text-align: center;
+    }
+    // Temp end
+  }
+}

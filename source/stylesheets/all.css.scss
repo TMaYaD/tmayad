@@ -1,5 +1,65 @@
 /*
+ *= require 'normalize'
  *= require 'foundation_and_overrides'
+ *= require_self
+ *= require_tree .
  */
 
 @charset "utf-8";
+
+@import 'compass/css3/images';
+
+.body-inner {
+  position: fixed !important;
+  overflow: auto;
+}
+
+@mixin stretch {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.stretch { @include stretch; }
+
+.aspect {
+  position: relative;
+  display: block;
+  padding: 0;
+
+  &>* {
+    @include stretch;
+    margin: 0;
+  }
+
+  &.square {
+    padding-bottom: 100%;
+  }
+
+  &.tv {
+    padding-bottom: 75%;
+  }
+}
+
+#banner {
+  position: relative;
+
+  .title {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: right;
+    @include background-image(linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)));
+    padding: 1em;
+    h1 {
+      color: #77E5FE;
+    }
+  }
+}
+
+.container {
+  background-size: cover;
+  background-position: center;
+}
+

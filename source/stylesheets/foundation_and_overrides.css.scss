@@ -1274,7 +1274,7 @@ $default-float: left;
 // $topbar-sticky-class: ".sticky";
 
 // Import all of foundation css
-// @import "foundation";
+@import "foundation";
 
 // OR:
 // @import "foundation/components/global"; // *always required
@@ -1312,3 +1312,4 @@ $default-float: left;
 // @import "foundation/components/thumbs";
 // @import "foundation/components/tooltips";
 // @import "foundation/components/dropdown";
+
