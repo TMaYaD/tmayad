@@ -2,14 +2,292 @@
 title: TMaYaD - Home
 ---
 
-#banner.container
-  .title
-    .row
-      .small-12.columns
-        %h1
-          TMaYaD
-        %h4.subheader Freelancer, Entrepreneur, Hacker and Artist
+#chart.stretch
 
-#projects= partial 'home/projects'
+:coffee
+  $ ->
 
-#loonyflow= partial 'home/loonyflow'
+    chart = $('#chart')
+    w = chart.innerWidth()
+    h = chart.innerHeight()
+
+    top_margin = 40
+
+    labelDistance = 0
+
+    node = undefined
+    link = undefined
+    root = undefined
+    max_depth = 4
+
+    target = 'LoonyFlow'
+    target_net = undefined
+    target_net_links = undefined
+
+    update = ->
+
+      data = flatten(root)
+      nodes = data.nodes
+      links = data.links
+
+      # Update the links…
+      link = vis.selectAll("line.link").data(links, (d) ->
+        d.target.id
+      )
+      .style('stroke', link_color)
+
+      # Enter any new links.
+      link.enter().insert("svg:line", ".node").attr("class", "link").attr("x1", (d) ->
+        d.source.x
+      ).attr("y1", (d) ->
+        d.source.y
+      ).attr("x2", (d) ->
+        d.target.x
+      ).attr("y2", (d) ->
+        d.target.y
+      ).style('stroke', link_color)
+
+
+      # Exit any old links.
+      link.exit().remove()
+
+      # Update the nodes…
+      node = vis.selectAll("text.node").data(nodes, (d) ->
+        d.id
+      ).style("fill", node_color)
+
+      # Enter any new nodes.
+      node.enter().append("svg:text")
+        .attr("class", "node")
+        .attr("id", (d) ->
+          d.id
+        )
+        .text((d) ->
+          d.name
+        )
+        .each( (d) ->
+          box = this.getBBox()
+          d.width = box.width
+          d.height = box.height
+        )
+        .attr("x", (d) ->
+          d.x
+        )
+        .attr("y", (d) ->
+          d.y
+        )
+        .attr("text-anchor", "middle")
+        .style("fill", node_color)
+        .on("click", click)
+        .call(force.drag)
+
+      # Exit any old nodes.
+      node.exit().remove()
+
+      target_net = vis.selectAll('circle').data(target_nodes, String)
+
+      target_net.enter().append('circle').attr('r', 3).style('fill', 'blue')
+      target_net.exit().remove()
+
+      # Update the links…
+      target_net_links = vis.selectAll("line.target_link").data(target_links, (d) ->
+        d.target.id
+      )
+      .style('stroke', link_color)
+
+      # Enter any new links.
+      target_net_links.enter().insert("svg:line", "circle").attr("class", "target_link").attr("x1", (d) ->
+        d.source.x
+      ).attr("y1", (d) ->
+        d.source.y
+      ).attr("x2", (d) ->
+        d.target.x
+      ).attr("y2", (d) ->
+        d.target.y
+      ).style('stroke', 'black')
+
+
+      # Exit any old links.
+      target_net_links.exit().remove()
+
+      # Restart the force layout.
+      force.nodes(nodes).links(links).start()
+      target_force.nodes(target_nodes).links(target_links).start()
+
+    tick = ->
+      node.each (d) ->
+        if d.ancestor
+          d.y = top_margin/2
+        else
+          d.y = Math.max(d.y, top_margin)
+
+      node.attr("x", (d) ->
+        d.x
+      ).attr "y", (d) ->
+        d.y
+
+      link.attr("x1", (d) ->
+        d.source.x
+      ).attr("y1", (d) ->
+        d.source.y
+      ).attr("x2", (d) ->
+        d.target.x
+      ).attr "y2", (d) ->
+        d.target.y
+
+    target_tick = ->
+      target_net.attr("x", (d) ->
+        d.x
+      ).attr "y", (d) ->
+        d.y
+
+      target_net_links.attr("x1", (d) ->
+        d.source.x
+      ).attr("y1", (d) ->
+        d.source.y
+      ).attr("x2", (d) ->
+        d.target.x
+      ).attr "y2", (d) ->
+        d.target.y
+
+
+    # Color leaf nodes orange, and packages white or blue.
+    colorScale = d3.scale.category20().domain([1..max_depth * 2])
+    node_color = (d) ->
+      colorScale (d.depth * 2 - 1)
+    link_color = (d) ->
+      colorScale d.source.depth * 2
+
+    # Toggle children on click.
+    click = (d) ->
+      target = d.name
+      update()
+
+    hover = (d) ->
+      console.log d.name.length/d.depth
+
+    # Returns a list of all nodes under the root.
+    flatten = (root) ->
+      add_child_nodes = (node, depth) ->
+        node.id = ++i  unless node.id
+        node.weight = node.children && node.children.length || 0
+        node.depth = ++depth
+
+        node.x ||= Math.floor(Math.random() * w)
+        node.y ||= Math.floor(Math.random() * h)
+        node.fixed = false
+
+        node.ancestor = false
+
+        nodes.push node
+
+
+        if node.children && depth < max_depth
+          node.children.forEach (d) ->
+            add_child_nodes(d, depth)
+            link =
+              source: node
+              target: d
+
+            links.push link
+
+      find_target = (node) ->
+        if node.name == target
+          add_child_nodes node, 0
+          node.depth = 1
+          target_nodes.pop()
+          target_nodes.push node
+        else
+          node.fixed = false
+          if node.children
+            node.children.forEach (child) ->
+              if nodes.length == 0
+                find_target child
+                unless  nodes.length == 0 # this child has target
+                  node.id = ++i  unless node.id
+                  node.ancestor = true
+                  node.x = w/2 - i*10
+                  node.y = top_margin / 2
+
+                  nodes.push node
+                  links.push
+                    source: node
+                    target: child
+
+      nodes = []
+      links = []
+      ancestors = []
+      ancestor_links = []
+      siblings = []
+      i = 0
+      find_target root
+      r =
+        nodes: nodes
+        links: links
+
+
+    force = d3.layout
+      .force()
+      .on("tick", tick)
+      .size([w, h])
+      .gravity(0)
+      .linkStrength((link) ->
+        1 / (max_depth - (link.source.depth || 0))
+      )
+      .charge((node) ->
+        -20 * node.width
+      )
+
+    target_force = d3.layout
+      .force()
+      .size([w,h])
+      .on('tick', target_tick)
+      .linkStrength(1)
+      .charge(600)
+
+    window.target_nodes = [
+      {
+        id: 'top-left'
+        x: 0
+        y: 0
+        fixed: true
+      }, {
+        id: 'top-right'
+        x: 0
+        y: h
+        fixed: true
+      }, {
+        id: 'bottom-right'
+        x: w
+        y: h
+        fixed: true
+      }, {
+        id: 'bottom-left'
+        x: w
+        y: 0
+        fixed: true
+      }, {
+        x: w/2
+        y: h/2
+      }
+    ]
+    target_links = [
+      {
+        source: 0
+        target: 4
+      }, {
+        source: 1
+        target: 4
+      }, {
+        source: 2
+        target: 4
+      }, {
+        source: 3
+        target: 4
+      }
+    ]
+
+    vis = d3.select("#chart").append("svg:svg").attr("class", "stretch")
+    d3.json "sitemap.json", (json) ->
+      root = json
+      update()

@@ -1,0 +1,63 @@
+{
+  "name": "TMaYaD",
+  "size": 20000,
+  "children": [
+    {
+      "name": "Projects",
+      "size": 10000,
+      "children": [
+        {
+          "name": "LoonyFlow",
+          "size": 5000,
+          "children": [
+            { "name": "AgglomerativeCluster" },
+            { "name": "CommunityStructure" },
+            { "name": "HierarchicalCluster" },
+            { "name": "MergeEdge" }
+          ]
+        },
+        {
+          "name": "Picasa Gallery",
+          "size": 5000,
+          "children": [
+            { "name": "BetweennessCentrality" },
+            { "name": "LinkDistance" },
+            { "name": "MaxFlowMinCut" },
+            { "name": "ShortestPaths" },
+            { "name": "SpanningTree" }
+          ]
+        },
+        {
+          "name": "printfriendly",
+          "size": 5000,
+          "children": [
+            { "name": "AspectRatioBanker" }
+          ]
+        },
+        {
+          "name": "Investopresto",
+          "size": 5000,
+          "children": [
+            { "name": "AspectRatioBanker" }
+          ]
+        },
+        {
+          "name": "IMotion",
+          "size": 5000
+        },
+        {
+          "name": "PharmaSoft",
+          "size": 5000
+        },
+        {
+          "name": "RedisRecord",
+          "size": 5000
+        },
+        {
+          "name": "Livewire",
+          "size": 5000
+        }
+      ]
+    }
+  ]
+}
