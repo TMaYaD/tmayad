@@ -11,6 +11,7 @@ gem 'sass'
 gem 'zurb-foundation'
 
 # group :development do
+  gem 'middleman-jasmine'
   gem 'middleman-livereload', '~>3.0.1'
   gem 'rb-inotify' if RUBY_PLATFORM.downcase.include?('linux')
   gem 'rb-fsevent' if RUBY_PLATFORM.downcase.include?('darwin')

@@ -52,6 +52,7 @@ activate :sprockets
 require 'foundation/sprockets'
 
 activate :livereload
+activate :jasmine
 
 # Build-specific configuration
 configure :build do
