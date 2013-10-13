@@ -22,4 +22,4 @@ describe "JSONMatcher", ->
       a: ->
     spyOn expected, 'a'
     expect(a: 1).toMatchJson expected
-    expect(expected.a).toHaveBeenCalledWith 1
+    expect(expected.a.mostRecentCall.args[0]).toEqual(1)

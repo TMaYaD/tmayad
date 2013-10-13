@@ -1,2 +1,2 @@
-// require all
+//= require all
 //= require_tree .
