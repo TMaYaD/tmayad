@@ -67,4 +67,4 @@ describe "Tree", ->
 
   it "should parse sitemap for siblings", ->
     tree.parse target: 'b2'
-    expect(tree.siblings).toHaveNodes [ 'b2', 'b3' ]
+    expect(tree.siblings).toHaveNodes [ 'b 1', 'b 3' ]
