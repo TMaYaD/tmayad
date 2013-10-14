@@ -16,12 +16,14 @@ class window.Tree
     if node.name == @target
       @parse_target node
       @parse_siblings node
+      @target_found = true
     else
-      @ancestors.push node
       if node.children
-        node.children.forEach (child)=>
-          child.parent = node
+        node.children.some (child)=>
           @recur_for_ancestors child
+          @ancestors.unshift(node) if @target_found
+          @target_found
+
 
   parse_target: (node)->
 

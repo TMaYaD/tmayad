@@ -6,15 +6,14 @@ Array::reject_order = ->
   @unordered = false
   @
 
-beforeEach ->
-  @addMatchers toMatchJson: (expected) ->
-    expected = new JsonMatcher expected unless expected.name == 'JsonMatcher'
+jasmine.Matchers::toMatchJson = (expected) ->
+  expected = new @env.JsonMatcher expected unless expected.name == 'JsonMatcher'
 
-    result = expected.matches @actual
-    @message = expected.message unless result
-    result
+  result = expected.matches @actual
+  @message = expected.message unless result
+  result
 
-class JsonMatcher
+class jasmine.Env::JsonMatcher
   primitives: [
     'string',
     'number',

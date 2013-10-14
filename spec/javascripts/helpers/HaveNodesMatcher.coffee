@@ -1,6 +1,10 @@
-beforeEach ->
-  @addMatchers toHaveNodes: (expected) ->
-    expected_nodes = expected.map (name)->
-      { name: name }
+#= require ./JsonMatcher
 
-    expect(@actual).toMatchJson expected_nodes
+jasmine.Matchers::toHaveNodes = (expected) ->
+  expected_matcher = new @env.JsonMatcher expected.map (name)->
+    { name: name }
+
+  result = expected_matcher.matches @actual
+
+  @message = expected_matcher.message unless result
+  result
