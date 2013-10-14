@@ -25,8 +25,11 @@ class jasmine.Env::JsonMatcher
     @expected = expected
 
   matches: (actual)->
+    @catch_a_match @expected, actual
+
+  catch_a_match: (expected, actual)->
     try
-      @match @expected, actual
+      @match expected, actual
       return true
 
     catch err
@@ -56,11 +59,13 @@ class jasmine.Env::JsonMatcher
     @fail_with "too few elements(#{actual.length}/#{expected.length}) in #{JSON.stringify actual}" if expected.length > actual.length
 
     if expected.unordered
-      expected = expected.slice(0).sort()
-      actual = actual.slice(0).sort()
-
-    expected.forEach (item, i)=>
-      @match item, actual[i]
+      result = expected.every (expected_item)=>
+        actual.some (actual_item)=>
+          @catch_a_match expected_item, actual_item
+      @fail_with @message unless result
+    else
+      expected.forEach (item, i)=>
+        @match item, actual[i]
 
   match_hash: (expected, actual) ->
     match_prop = (prop)=>

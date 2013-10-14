@@ -8,6 +8,9 @@ describe "JSONMatcher", ->
   it "should match array without order", ->
     expect(['a', 'b']).toMatchJson ['b', 'a'].ignore_order()
 
+  it "should match array without order on complex objects", ->
+    expect([{'b': 2}, {'b': 1}]).toMatchJson [{'b': 1}, {'b': 2}].ignore_order()
+
   it "should reject array without order", ->
     expect(['a', 'b']).not.toMatchJson ['b', 'a'].reject_order()
 

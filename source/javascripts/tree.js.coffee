@@ -9,8 +9,22 @@ class window.Tree
     @root = json
 
   parse: (opts)->
+    return if @target == opts['target']
+
     @target = opts['target']
+    @reset()
+
     @recur_for_ancestors @root
+
+  reset: ->
+    @ancestors = []
+    @siblings = []
+
+    @nodes = []
+    @links = []
+
+    @target_found = false
+    @siblings_found = false
 
   recur_for_ancestors: (node)->
     if node.name == @target
@@ -29,6 +43,10 @@ class window.Tree
 
 
   parse_target: (node)->
+    @nodes.push node
+    if node.children
+      node.children.forEach (child)=>
+        @parse_target child
 
   get_siblings: (parent, target)->
     parent.children.forEach (child)=>

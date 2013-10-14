@@ -62,9 +62,13 @@ describe "Tree", ->
   tree = new Tree json
 
   it "should parse sitemap for ancestors", ->
-    tree.parse target: 'b 2'
+    tree.parse target: 'b 1'
     expect(tree.ancestors).toHaveNodes [ 'root', 'a 1' ]
 
   it "should parse sitemap for siblings", ->
-    tree.parse target: 'b2'
+    tree.parse target: 'b 2'
     expect(tree.siblings).toHaveNodes [ 'b 1', 'b 3' ]
+
+  it "should parse sitemap for nodes", ->
+    tree.parse target: 'a 2'
+    expect(tree.nodes).toHaveNodes [ 'a 2', 'b 4', 'b 5', 'c 7', 'c 8', 'c 9'].ignore_order()
