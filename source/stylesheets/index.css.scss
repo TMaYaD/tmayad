@@ -12,10 +12,6 @@
     .project {
       padding: 10px;
 
-      img {
-        width: 100%;
-      }
-
       &:nth-child(odd) {
         .logo {
           @include grid-column($push:8, $collapse: null, $float:false);
@@ -36,5 +32,8 @@
       }
 
     }
+  }
+
+  #clients {
   }
 }
