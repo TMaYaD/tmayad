@@ -1,12 +1,11 @@
 /*
  *= require 'normalize'
- *= require 'foundation_and_overrides'
  *= require_self
- *= require_tree .
  */
 
 @charset "utf-8";
 
+@import 'foundation_and_overrides';
 @import 'compass/css3/images';
 
 .body-inner {
@@ -50,10 +49,12 @@
     bottom: 0;
     width: 100%;
     text-align: right;
-    @include background-image(linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)));
     padding: 1em;
     h1 {
-      color: #77E5FE;
+      color: white;
+      small {
+        color: white;
+      }
     }
   }
 }
@@ -63,3 +64,32 @@
   background-position: center;
 }
 
+h2 {
+  text-align: center;
+
+  padding: 16px;
+  margin-bottom: 29px;
+
+  border-bottom: 3px solid #DADADA;
+
+  position: relative;
+
+  &:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    border-bottom: 0;
+  }
+
+  &:after {
+    bottom: -8px;
+    left: 50%;
+    border-top-color: #dadada;
+    border-width: 8px;
+  }
+}
+
+@import 'index';

@@ -14,8 +14,11 @@
 
     %title= data.page.title || "TMaYaD"
 
+    = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700'
     = stylesheet_link_tag "normalize", "all"
-    = javascript_include_tag  "all"
 
   %body{class: page_classes}
     .body-inner.stretch= yield
+
+  %foot
+    = javascript_include_tag  "all"

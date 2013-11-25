@@ -1,36 +1,73 @@
 .row
-  .small-12.columns
-    %ul.small-block-grid-2.large-block-grid-4
-      %h2 Projects
-      %li
-        = link_to '/projects/loonyflow', class: 'aspect square' do
-          %h4
-            %small LoonyFlow
-      %li
-        = link_to '/projects/picasa_gallery', class: 'aspect square' do
-          %h4
-            %small Picasa Gallery
-      %li
-        = link_to '/projects/printfriendly', class: 'aspect square' do
-          %h4
-            %small Print Friendly
-      %li
-        = link_to '/projects/investopresto', class: 'aspect square' do
-          %h4
-            %small Investopresto
-      %li
-        = link_to '/projects/imotion', class: 'aspect square' do
-          %h4
-            %small IMotion
-      %li
-        = link_to '/projects/pharmasoft', class: 'aspect square' do
-          %h4
-            %small Pharma Soft
-      %li
-        = link_to '/projects/livewire', class: 'aspect square' do
-          %h4
-            %small Livewire
-      %li
-        = link_to '/projects/redis-record', class: 'aspect square' do
-          %h4
-            %small Redis Record
+  %h2.small-12.columns Projects
+
+
+.project
+  .row
+    = link_to '/projects/loonyflow' do
+      .logo.small-4.columns
+        .aspect.square
+          = image_tag 'projects/loonyflow.png'
+      .description.small-8.columns
+        %h3 LoonyFlow
+        %p Automated workflow for developers
+
+.project
+  .row
+    = link_to '/projects/picasa_gallery' do
+      .logo.small-4.columns
+        .aspect.square
+          = image_tag 'projects/picasa_gallery.png'
+      .description.small-8.columns
+        %h3 Picasa Gallery
+        %p Javascript to embed images from your picasa gallery into any webpage
+
+.project
+  .row
+    = link_to '/projects/livewire' do
+      .logo.small-4.columns
+        .aspect.square
+          = image_tag 'projects/livewire.png'
+      .description.small-8.columns
+        %h3 Livewire
+        %p A simple CMS build on meteor
+
+.project
+  .row
+    = link_to '/projects/redis_record' do
+      .logo.small-4.columns
+        .aspect.square
+          = image_tag 'projects/redis_record.png'
+      .description.small-8.columns
+        %h3 Redis Record
+        %p ActiveRecord style interface for Redis backed objects
+
+.project
+  .row
+    = link_to '/projects/pharmasoft' do
+      .logo.small-4.columns
+        .aspect.square
+          = image_tag 'projects/pharmasoft.png'
+      .description.small-8.columns
+        %h3 Pharmasoft
+        %p Web app for pharma sales and management
+
+.project
+  .row
+    = link_to '/projects/jekyll_pipeline' do
+      .logo.small-4.columns
+        .aspect.square
+          = image_tag 'projects/jekyll_pipeline.png'
+      .description.small-8.columns
+        %h3 Jekyll Pipeline
+        %p Compile jekyll sites into your rails app along with your assets
+
+.project
+  .row
+    = link_to '/projects/data_tables_responder' do
+      .logo.small-4.columns
+        .aspect.square
+          = image_tag 'projects/data_tables_responder.png'
+      .description.small-8.columns
+        %h3 Data Tables Responder
+        %p Responder to link rails resources with data_tables

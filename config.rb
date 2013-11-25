@@ -49,6 +49,10 @@
 
 activate :sprockets
 
+activate :blog
+
+activate :blog_editor
+
 require 'foundation/sprockets'
 
 activate :livereload
