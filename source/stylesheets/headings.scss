@@ -1,0 +1,24 @@
+$heading-color: #4EB688 !default;
+$subheading-color: grayscale($heading-color) !default;
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+  color: $heading-color;
+  small {
+    font-weight: 200;
+    font-size: 60%;
+    color: $subheading-color;
+  }
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+h2 {
+  font-size: 2em;
+}

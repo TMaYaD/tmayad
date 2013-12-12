@@ -1,0 +1,13 @@
+
+$phone-breakpoint: 768px;
+$on-phone:      "only screen and (max-width: #{$phone-breakpoint - 1})";
+$not-on-phone:  "only screen and (min-width: #{$phone-breakpoint})";
+
+
+@mixin exp($prop, $value) {
+  -webkit-#{$prop}: $value;
+     -moz-#{$prop}: $value;
+      -ms-#{$prop}: $value;
+       -o-#{$prop}: $value;
+          #{$prop}: $value;
+}

@@ -19,6 +19,7 @@ gem 'zurb-foundation'
 
 # group :development do
   gem 'middleman-livereload'
+  gem 'pry'
   gem 'rb-inotify' if RUBY_PLATFORM.downcase.include?('linux')
   gem 'rb-fsevent' if RUBY_PLATFORM.downcase.include?('darwin')
 # end

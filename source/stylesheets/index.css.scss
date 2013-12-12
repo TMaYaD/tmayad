@@ -1,40 +1,64 @@
 @import "compass/css3/border-radius";
 @import "compass/css3/box-shadow";
-@import 'foundation_and_overrides';
-@import "foundation/components/grid";
 
 .index {
-  #banner {
-    height: 30%;
+  .leader {
     background-image: image-url('cover-photo.jpg');
   }
+}
 
-  #projects {
-    .project {
-      padding: 10px;
-
-      &:nth-child(odd) {
-        .logo {
-          @include grid-column($push:8, $collapse: null, $float:false);
-        }
-        .description {
-          @include grid-column($pull:4, $collapse: null, $float:false);
-        }
-      }
-
-      $n: 8;
-      $offset: 3;
-      @for $i from 0 to $n {
-        &:nth-child(#{$n}n + #{$i}):hover {
-          $hue: 360 * ($i + $offset) / $n;
-          background-color: hsla($hue, 100, 50, 0.2);
-          @include single-box-shadow(hsla($hue, 100, 50, 0.8));
-        }
-      }
-
-    }
-  }
-
-  #clients {
+.projects {
+  .leader {
+    background-image: image-url('projects/leader.png');
   }
 }
+
+
+.content {
+  > .section-heading {
+    &:not(:first-child) {
+      @include exp(column-break-before, always);
+      break-before: column;
+    }
+    &:not(:last-child) {
+      @include exp(column-break-after, always);
+      break-after: column;
+    }
+    @include exp(column-break-inside, avoid);
+    break-inside: avoid;
+
+    height: 100%;
+    border-right: ($gutter-width/5) solid rgba(red, 0.6);
+
+    h3 {
+      @include exp(transform, rotate(-90deg));
+      @include exp(transform-origin, bottom right);
+      text-align: right;
+      font-size: 24pt;
+      margin: 0;
+    }
+  }
+}
+#projects {
+
+  .project {
+    padding: 10px;
+    @include exp(column-break-inside, avoid);
+    break-inside: avoid;
+
+    $n: 8;
+    $offset: 3;
+    @for $i from 0 to $n {
+      &:nth-child(#{$n}n + #{$i}):hover {
+        $hue: 360 * ($i + $offset) / $n;
+        background-color: hsla($hue, 100, 50, 0.2);
+        @include single-box-shadow(hsla($hue, 100, 50, 0.8));
+      }
+    }
+
+  }
+}
+
+#clients {
+}
+

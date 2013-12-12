@@ -1,0 +1,114 @@
+@import 'utility';
+
+$header-height: 4em;
+$footer-height: 4em;
+
+// Flexible layout with fixed header and footer
+@media #{$not-on-phone} {
+  header, #body, footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+  }
+
+  header {
+    top: 0;
+    max-height: $header-height;
+  }
+
+  #body {
+    top: $header-height;
+    bottom: $footer-height;
+    overflow-x: auto;
+  }
+
+  footer {
+    max-height: $footer-height;
+    bottom: 0;
+  }
+}
+
+// define aspect ratio: element height in terms of width
+@mixin stretch {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.stretch { @include stretch; }
+
+.aspect {
+  position: relative;
+  display: block;
+  padding: 0;
+  overflow: hidden;
+
+  >* {
+    @include stretch;
+    margin: 0;
+  }
+
+  &.square {
+    padding-bottom: 100%;
+  }
+
+  &.tv {
+    padding-bottom: 75%;
+  }
+
+  > img {
+    width: 100%;
+  }
+}
+
+// Leader for the page
+$column-width: 325px !default;
+$gutter-width: 18px !default;
+
+.leader {
+  background-position: 0px;
+  background-repeat: no-repeat;
+
+  @include exp(background-size, cover);
+
+  position: relative;
+
+  width: 2.5 * $column-width + 2 * $gutter-width;
+
+  .title {
+    background: rgba(white, 0.6);
+    border-left: solid white;
+    border-width: $gutter-width / 3;
+
+    position: absolute;
+    right: 0;
+    width: $column-width;
+    height: 100%;
+
+    > * {
+      margin: $gutter-width;
+    }
+
+    .sub {
+      position: absolute;
+      bottom: 1em;
+      text-align: right;
+      small {
+        color: #333;
+      }
+    }
+  }
+}
+
+.content {
+  margin-left: $gutter-width;
+  width: $column-width;
+  @include exp(column-width, $column-width);
+  @include exp(column-gap, $gutter-width);
+}
+
+.leader, .content {
+  float: left;
+  height: 100%;
+}
