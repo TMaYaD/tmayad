@@ -1,10 +1,10 @@
+@import 'variables';
 @import 'utility';
 
-$header-height: 4em;
-$footer-height: 4em;
+$header-height: $topbar-height;
+$footer-height: 3em;
 
 // Flexible layout with fixed header and footer
-@media #{$not-on-phone} {
   header, #body, footer {
     position: fixed;
     left: 0;
@@ -26,7 +26,6 @@ $footer-height: 4em;
     max-height: $footer-height;
     bottom: 0;
   }
-}
 
 // define aspect ratio: element height in terms of width
 @mixin stretch {
@@ -111,4 +110,10 @@ $gutter-width: 18px !default;
 .leader, .content {
   float: left;
   height: 100%;
+}
+
+footer {
+  p {
+    margin-bottom: 6px;
+  }
 }

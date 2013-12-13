@@ -13,9 +13,7 @@ gem 'middleman-sprockets'
 
 
 gem 'haml'
-gem 'jquery-sprockets', github: 'TMaYaD/jquery-sprockets'
 gem 'sass'
-gem 'zurb-foundation'
 
 # group :development do
   gem 'middleman-livereload'

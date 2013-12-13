@@ -1,0 +1,14 @@
+$primary-color: #99cc00;
+$header-font-color: #669900;
+$small-font-color: grayscale($header-font-color);
+
+$header-font-family: "Roboto";
+$paragraph-font-family: "Roboto";
+
+$topbar-bg-color: white;
+$topbar-title-weight: 300;
+$topbar-link-color: $primary-color;
+$topbar-link-color-hover: $primary-color;
+$topbar-link-bg-hover: mix($primary-color, white, 20%);
+
+@import 'foundation/settings';

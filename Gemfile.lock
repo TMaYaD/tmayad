@@ -1,10 +1,4 @@
 GIT
-  remote: git://github.com/TMaYaD/jquery-sprockets.git
-  revision: 9cc74780fe71e8dccc2aed59993266a4f72b8ea5
-  specs:
-    jquery-sprockets (0.0.1)
-
-GIT
   remote: git://github.com/plasticine/middleman-imageoptim.git
   revision: 7cf5202cefa05e12ca8e5727b7d050d29822fb63
   specs:
@@ -286,8 +280,6 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.6)
-    zurb-foundation (4.3.2)
-      sass (>= 3.2.0)
 
 PLATFORMS
   ruby
@@ -296,7 +288,6 @@ DEPENDENCIES
   dotenv
   haml
   image_optim
-  jquery-sprockets!
   middleman
   middleman-blog
   middleman-blog-editor
@@ -308,4 +299,3 @@ DEPENDENCIES
   pry
   rb-fsevent
   sass
-  zurb-foundation

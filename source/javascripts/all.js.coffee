@@ -1,5 +1,9 @@
 #= require jquery
 #= require jquery.mousewheel
+#
+#= require foundation/foundation
+#= require foundation/foundation.offcanvas
+#
 #= require_tree .
 
 $ ->

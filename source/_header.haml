@@ -1,10 +1,12 @@
-%hgroup
-  %h1
-    = link_to 'TMaYaD', '/'
-    %small (n.) A crazy freelancer, entrepreneur, hacker, and an artist
+%nav.top-bar{data: {topbar: true, options: "is_hover: false"}}
+  %ul.title-area
+    %li.name
+      %h1
+        = link_to 'TMaYaD', '/'
+        %small (n.) A crazy freelancer, entrepreneur, hacker, and an artist
 
-  %nav
-    %ul
+  %section.top-bar-section
+    %ul.right
       %li.active= link_to 'Projects', '/projects'
       %li= link_to 'FAQ', '/faq'
       %li= link_to 'Hire us', '/hire-us'
