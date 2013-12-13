@@ -30,3 +30,5 @@ $ ->
   $body.scroll ->
     scroll_left = $body.scrollLeft()
     $('.leader').css('background-position', "#{scroll_left/2}px")
+
+  $(".top-bar [href='#{window.location.pathname}']").parent('li').addClass('active')

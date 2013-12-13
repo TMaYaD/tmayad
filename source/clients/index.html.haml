@@ -1,0 +1,26 @@
+%section.leader
+  .title
+    %h2 Clients
+    %h2.sub
+      %small Real people
+
+- content_for :client_link do |name, url|
+  = link_to url, style: "background-image: url(#{image_path("clients/#{name}.png")})" do
+    = name
+
+%ul.content
+  %li
+  %li= yield_content :client_link, 'divi', 'http://www.divi.co.in'
+  %li
+  %li
+  %li= yield_content :client_link, 'vymo', 'http://vymo.in'
+  %li= yield_content :client_link, 'touchjet', 'http://www.atouchjet.com'
+  %li
+  %li
+  %li= yield_content :client_link, 'intellectmotion', 'http://www.getimotion.com'
+  %li
+  %li= yield_content :client_link, 'printfriendly', 'http://www.printfriendly.com'
+  %li
+  %li= yield_content :client_link, 'protsahan', 'http://www.protsahan.co.in'
+  %li
+  %li= yield_content :client_link, 'investopresto', 'https://angel.co/investopresto-1'

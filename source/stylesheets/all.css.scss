@@ -6,9 +6,7 @@
 @charset "utf-8";
 
 @import 'foundation_and_overrides';
-//@import 'typography';
 @import 'layout';
-//@import 'nav';
 
 header {
   h1 {
@@ -16,32 +14,28 @@ header {
   }
 }
 
-@mixin arrow-underline {
-  text-align: center;
+.content {
+  > .section-heading {
+    &:not(:first-child) {
+      @include exp(column-break-before, always);
+      break-before: column;
+    }
+    &:not(:last-child) {
+      @include exp(column-break-after, always);
+      break-after: column;
+    }
+    @include exp(column-break-inside, avoid);
+    break-inside: avoid;
 
-  padding: 16px;
-  margin-bottom: 29px;
+    height: 100%;
+    border-right: ($gutter-width/5) solid rgba(red, 0.6);
 
-  border-bottom: 3px solid #DADADA;
-
-  position: relative;
-
-  &:after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-color: transparent;
-    border-bottom: 0;
-  }
-
-  &:after {
-    bottom: -8px;
-    left: 50%;
-    border-top-color: #dadada;
-    border-width: 8px;
+    h3 {
+      @include exp(transform, rotate(-90deg));
+      @include exp(transform-origin, bottom right);
+      text-align: right;
+      font-size: 24pt;
+      margin: 0;
+    }
   }
 }
-
-@import 'index';

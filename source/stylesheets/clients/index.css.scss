@@ -1,0 +1,28 @@
+@import 'variables';
+@import 'utility';
+
+.leader {
+  background-image: image-url('clients/leader.jpg');
+}
+
+.content {
+  @include exp(column-gap, 0px);
+
+  li {
+    height: 20%;
+    padding: 9px;
+    a {
+      display: block;
+      height: 100%;
+      text-indent: -9999px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: 50%;
+    }
+
+    &:nth-child(odd) {
+      background: mix($primary-color, white, 30%);
+    }
+
+  }
+}
