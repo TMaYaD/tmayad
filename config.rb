@@ -91,7 +91,7 @@ configure :build do
 end
 
 activate :s3_sync do |s3_sync|
-  s3_sync.bucket                = 'loonyb.in'
+  s3_sync.bucket                = 'tmayad.loonyb.in'
   s3_sync.region                = 'us-east-1'
   s3_sync.aws_access_key_id     = ENV['AWS_KEY']
   s3_sync.aws_secret_access_key = ENV['AWS_SECRET']
