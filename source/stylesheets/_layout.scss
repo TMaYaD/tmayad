@@ -5,27 +5,39 @@ $header-height: $topbar-height;
 $footer-height: 3em;
 
 // Flexible layout with fixed header and footer
-  header, #body, footer {
-    position: fixed;
-    left: 0;
-    right: 0;
-  }
+header, #body, footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+}
 
-  header {
-    top: 0;
-    max-height: $header-height;
-  }
+header {
+  top: 0;
+  max-height: $header-height;
+}
 
-  #body {
-    top: $header-height;
-    bottom: $footer-height;
-    overflow-x: auto;
-  }
+#body {
+  top: $header-height;
+  bottom: $footer-height;
+}
 
-  footer {
-    max-height: $footer-height;
-    bottom: 0;
-  }
+footer {
+  max-height: $footer-height;
+  bottom: 0;
+}
+
+// Make rest of the page scroll
+
+.outer-scroll-wrapper {
+  height: 100%;
+  overflow-x: auto;
+}
+
+.inner-scroll-wrapper {
+  margin-right: -99999px;
+  height: 100%;
+  float: left;
+}
 
 // define aspect ratio: element height in terms of width
 @mixin stretch {

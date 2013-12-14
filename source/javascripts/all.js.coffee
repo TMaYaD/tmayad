@@ -7,7 +7,9 @@
 #= require_tree .
 
 $ ->
-  $body = $('#body')
+  $(document).foundation()
+
+  $body = $('.outer-scroll-wrapper')
   column_width = $('.content', $body).width()
 
   _lock = false
@@ -31,4 +33,4 @@ $ ->
     scroll_left = $body.scrollLeft()
     $('.leader').css('background-position', "#{scroll_left/2}px")
 
-  $(".top-bar [href='#{window.location.pathname}']").parent('li').addClass('active')
+  $(".main-menu [href='#{window.location.pathname}']").parent('li').addClass('active')

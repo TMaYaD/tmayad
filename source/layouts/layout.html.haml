@@ -18,10 +18,12 @@
     = stylesheet_link_tag "all"
     = auto_stylesheet_link_tag
 
-  %body{class: page_classes}
+  %body.off-canvas-wrap{class: page_classes}
     %header= partial 'header'
-    #body
-      = yield
+    #body.inner-wrap
+      %aside.left-off-canvas-menu= partial 'nav'
+      .outer-scroll-wrapper
+        .inner-scroll-wrapper= yield
     %footer
       %p.text-center &copy; Loony Bin 2013
 
