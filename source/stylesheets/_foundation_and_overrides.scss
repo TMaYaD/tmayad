@@ -36,18 +36,15 @@
 //  "foundation/components/tooltips",
   "foundation/components/top-bar",
   "foundation/components/offcanvas",
-//  "foundation/components/visibility",
+  "foundation/components/visibility",
   "foundation/components/type";
-
-h1, h2, h3, h4, h5, h6 {
-  a {
-    color: inherit;
-  }
-}
 
 .top-bar .name {
   h1 {
-    font-size: $h2-font-size;
+    font-size: $h3-font-size;
+    @media #{$large-up} {
+      font-size: $h2-font-size;
+    }
     a {
       color: $header-font-color;
       display: inline;

@@ -19,9 +19,9 @@
     = auto_stylesheet_link_tag
 
   %body.off-canvas-wrap{class: page_classes}
-    %header= partial 'header'
+    = partial 'header'
     #body.inner-wrap
-      %aside.left-off-canvas-menu= partial 'nav'
+      %aside.left-off-canvas-menu.hide-for-large-up= partial 'nav'
       .outer-scroll-wrapper
         .inner-scroll-wrapper= yield
     %footer
