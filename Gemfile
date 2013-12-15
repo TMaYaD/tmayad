@@ -7,8 +7,9 @@ gem 'middleman'
 gem 'middleman-blog'
 gem 'middleman-blog-editor'
 gem 'middleman-favicon-maker'
-gem "middleman-imageoptim", github: 'plasticine/middleman-imageoptim'
+gem 'middleman-imageoptim', github: 'plasticine/middleman-imageoptim'
   gem 'image_optim'
+gem 'middleman-minify-html'
 gem 'middleman-sprockets'
 
 
