@@ -4,7 +4,7 @@
 #= require foundation/foundation
 #= require foundation/foundation.offcanvas
 #
-#= require_tree .
+# require_tree .
 
 $ ->
   $(document).foundation()
