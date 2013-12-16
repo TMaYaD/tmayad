@@ -2,6 +2,9 @@
 #= require quintus/lib/quintus_sprites
 #= require quintus/lib/quintus_scenes
 #= require quintus/lib/quintus_input
+#
+#= require quintus/lib/quintus_2d
+#= require quintus_kinematics
 
 $ ->
   width = $('section.stretch').innerWidth()
@@ -10,7 +13,7 @@ $ ->
     width: width
     height: height
   radius = 10
-  Q = Quintus().include('Sprites, Scenes, Input')
+  Q = Quintus().include('Sprites, Scenes, 2D, Input, Kinematics')
     .setup('paranoid')
     .controls()
 
@@ -23,10 +26,12 @@ $ ->
         h: radius * 2
         cx: radius
         cy: radius
-        dx: 50
-        dy: 50
+        vx: 100
+        vy: 100
         color: '#000000'
-      @on 'hit', this, 'collision'
+        gravity: 0
+      @add '2d, aiBounce, aiVerticalBounce'
+      @on 'bump.bottom', @, 'restart'
 
     draw: (ctx)->
       ctx.beginPath()
@@ -35,14 +40,11 @@ $ ->
       ctx.fill()
 
     step: (dt)->
-      @p.x += @p.dx * dt
-      @p.y += @p.dy * dt
+      #@p.x += @p.dx * dt
+      #@p.y += @p.dy * dt
 
-      @stage.collide @
-
-    collision: (c)->
-      @p.dx = @p.dx - c.separate[0]/2
-      @p.dy = @p.dy - c.separate[1]/2
+    restart: (col)->
+      Q.stageScene 'level1' if col.obj.isA 'Wall'
 
   Q.Sprite.extend 'Wall',
     draw: (ctx)->
@@ -69,11 +71,9 @@ $ ->
 
     left: ->
       @p.v = Math.max(@p.v-10, -200)
-      console.log @p.v
 
     right: ->
       @p.v = Math.min(@p.v+10, 200)
-      console.log @p.v
 
   Q.scene 'level1', (stage)->
     stage.insert new Q.Wall
@@ -92,12 +92,18 @@ $ ->
       w: 5
       h: height
 
+    stage.insert new Q.Wall
+      x: width/2
+      y: height
+      w: width
+      h: 5
+
     paddle = stage.insert new Q.Paddle
 
     stage.insert new Q.Ball
       x: Math.random() * width
-      y: Math.random() * height
-      dx: Math.random() * 200 - 100
-      dy: Math.random() * 200 - 100
+      y: Math.random() * height / 2
+      vx: Math.random() * 200 - 100
+      vy: Math.random() * 50 + 50
 
   Q.stageScene 'level1'
