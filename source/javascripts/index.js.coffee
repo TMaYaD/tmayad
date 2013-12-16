@@ -2,7 +2,7 @@
 #= require quintus/lib/quintus_sprites
 #= require quintus/lib/quintus_scenes
 #= require quintus/lib/quintus_input
-#
+#= require quintus/lib/quintus_touch
 #= require quintus/lib/quintus_2d
 #= require quintus_kinematics
 
@@ -20,8 +20,10 @@ $ ->
     width: width
     height: height
 
-  Q = Quintus().include('Sprites, Scenes, 2D, Input, Kinematics')
+  Q = Quintus().include('Sprites, Scenes, 2D, Input, Touch, Kinematics')
     .setup('paranoid')
+
+  Q.touch(Q.SPRITE_ALL)
 
   Q.input.keyboardControls()
 
@@ -135,7 +137,8 @@ $ ->
         w: 3 * BRICK_WIDTH - 2
         h: 2 * BRICK_HEIGHT - 2
         name: ''
-      @on 'hit'
+      @on 'hit', @, 'navigate'
+      @on 'touch', @, 'navigate'
 
     draw: (ctx)->
       ctx.fillStyle = "rgba(128, 192, 64, 0.8)"
@@ -146,7 +149,7 @@ $ ->
       ctx.font = "#{@p.h/2}px Roboto"
       ctx.fillText @p.name, 0, 0
 
-    hit: (col)->
+    navigate: ->
       location.pathname = @p.location if @p.location
 
   Q.scene 'level1', (stage)->
