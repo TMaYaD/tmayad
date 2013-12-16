@@ -37,30 +37,32 @@ $ ->
     ]
 
   Q.scene 'level1', (stage)->
+    xInset = Quintus.Brick.WIDTH/2 - Quintus.Brick.GUTTER
+    yInset = Quintus.Brick.HEIGHT/2 - Quintus.Brick.GUTTER
     # Left Wall
     stage.insert new Q.Wall
-      x: -22
-      y: height/2
-      w: 50
-      h: height
+      x: -xInset
+      y: Q.height/2
+      w: Quintus.Brick.WIDTH
+      h: Q.height
     # Top Wall
     stage.insert new Q.Wall
-      x: width/2
-      y: -22
-      w: width
-      h: 50
+      x: Q.width/2
+      y: -yInset
+      w: Q.width
+      h: Quintus.Brick.HEIGHT
     # Right Wall
     stage.insert new Q.Wall
-      x: width+22
-      y: height/2
-      w: 50
-      h: height
+      x: Q.width+xInset
+      y: Q.height/2
+      w: Quintus.Brick.WIDTH
+      h: Q.height
     # Floor
     stage.insert new Q.Wall
-      x: width/2
-      y: height+22
-      w: width
-      h: 50
+      x: Q.width/2
+      y: Q.height+yInset
+      w: Q.width
+      h: Quintus.Brick.HEIGHT
 
     paddle = stage.insert new Q.Paddle
 

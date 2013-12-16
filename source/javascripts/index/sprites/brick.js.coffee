@@ -3,8 +3,8 @@ Quintus.Brick = (Q)->
     init: (p)->
       defaults = Q._defaults @get_position(),
         health: Math.floor(Math.random() * 4)
-        w: Quintus.Brick.WIDTH - 2
-        h: Quintus.Brick.HEIGHT - 2
+        w: Quintus.Brick.WIDTH - Quintus.Brick.GUTTER
+        h: Quintus.Brick.HEIGHT - Quintus.Brick.GUTTER
 
       @_super p, defaults
       @on 'hit', @, 'break'
@@ -49,3 +49,4 @@ Quintus.Brick = (Q)->
 
 Quintus.Brick.HEIGHT = 20
 Quintus.Brick.WIDTH = 50
+Quintus.Brick.GUTTER = 2
