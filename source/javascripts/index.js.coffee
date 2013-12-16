@@ -100,6 +100,7 @@ $ ->
       if col.obj.isA 'Ball'
         ball = col.obj.p
         ball.vx += 0.4 * @p.vx
+      @p.y = height - 20
 
   Q.Sprite.extend 'Brick',
     init: (p)->
@@ -122,27 +123,30 @@ $ ->
         @stage.remove @ if @p.health == 0
 
   Q.scene 'level1', (stage)->
+    # Left Wall
     stage.insert new Q.Wall
-      x: 0
+      x: -22
       y: height/2
-      w: 5
+      w: 50
       h: height
+    # Top Wall
     stage.insert new Q.Wall
       x: width/2
-      y: 0
+      y: -22
       w: width
-      h: 5
+      h: 50
+    # Right Wall
     stage.insert new Q.Wall
-      x: width
+      x: width+22
       y: height/2
-      w: 5
+      w: 50
       h: height
-
+    # Floor
     stage.insert new Q.Wall
       x: width/2
-      y: height
+      y: height+22
       w: width
-      h: 5
+      h: 50
 
     paddle = stage.insert new Q.Paddle
 
