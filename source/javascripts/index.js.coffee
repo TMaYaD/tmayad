@@ -9,6 +9,15 @@
 POLYGON_POINTS = 6
 RADIUS = 10
 
+BRICK_COLORS = [
+  '#ffffff'
+  '#cccccc'
+  '#999999'
+  '#666666'
+  '#333333'
+  '#000000'
+]
+
 $ ->
   width = $('section.stretch').innerWidth()
   height = $('section.stretch').innerHeight()
@@ -17,7 +26,8 @@ $ ->
     height: height
   Q = Quintus().include('Sprites, Scenes, 2D, Input, Kinematics')
     .setup('paranoid')
-    .controls()
+
+  Q.input.keyboardControls()
 
   Q.input.touchControls
     controls: [
@@ -90,7 +100,7 @@ $ ->
       @on 'hit', @, 'break'
 
     draw: (ctx)->
-      ctx.fillStyle = '#666666'
+      ctx.fillStyle = BRICK_COLORS[@p.health]
       ctx.fillRect -@p.cx, -@p.cy, @p.w, @p.h
 
     break: (col)->
@@ -133,5 +143,17 @@ $ ->
       stage.insert new Q.Brick
         x: Math.round(Math.random() * width * 3 / 200) * 50 + width / 8
         y: Math.round(Math.random() * height * 3/ 160) * 20 + height / 8
+
+    for i in [1..20]
+      stage.insert new Q.Brick
+        x: Math.round(Math.random() * width * 3 / 200) * 50 + width / 8
+        y: Math.round(Math.random() * height * 3/ 160) * 20 + height / 8
+        health: 2
+
+    for i in [1..10]
+      stage.insert new Q.Brick
+        x: Math.round(Math.random() * width * 3 / 200) * 50 + width / 8
+        y: Math.round(Math.random() * height * 3/ 160) * 20 + height / 8
+        health: 3
 
   Q.stageScene 'level1'
