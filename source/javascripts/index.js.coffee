@@ -97,8 +97,10 @@ $ ->
     break: (col)->
       @p.health -= 1
 
-      @stage.remove @ if @p.health == 0
-      Q.stageScene 'level1' if Q('Brick').length == 0
+      if Q('Brick').length == 1
+        Q.stageScene 'level1'
+      else
+        @stage.remove @ if @p.health == 0
 
   Q.scene 'level1', (stage)->
     stage.insert new Q.Wall
