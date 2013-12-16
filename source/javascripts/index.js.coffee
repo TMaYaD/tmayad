@@ -20,14 +20,14 @@ $ ->
 
   Q.input.keyboardControls()
 
-  # Q.input.touchControls
-  #   controls: [
-  #     ["left", "<"]
-  #     []
-  #     []
-  #     []
-  #     ["right", ">"]
-  #   ]
+  Q.input.touchControls
+    controls: [
+      ["left", "<"]
+      []
+      []
+      []
+      ["right", ">"]
+    ]
 
   Q.Sprite.extend 'Ball',
     init: (p)->
