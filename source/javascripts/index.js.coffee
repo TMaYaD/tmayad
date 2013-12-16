@@ -8,7 +8,8 @@
 
 POLYGON_POINTS = 6
 RADIUS = 10
-PADDLE_FORCE = 400
+PADDLE_FORCE = 600
+PADDLE_MAX_VELOCITY = 300
 
 $ ->
   width = $('section.stretch').innerWidth()
@@ -95,11 +96,13 @@ $ ->
         else
           @p.ax = 0
       @p.ax = @p.fx + friction
+      @p.vx = Math.max(-PADDLE_MAX_VELOCITY, Math.min(PADDLE_MAX_VELOCITY, @p.vx))
 
     hit: (col)->
       if col.obj.isA 'Ball'
         ball = col.obj.p
-        ball.vx += 0.4 * @p.vx
+        ball.vx = (ball.vx + 0.3 * @p.vx)/1.3
+
       @p.y = height - 20
 
   Q.Sprite.extend 'Brick',
@@ -111,7 +114,8 @@ $ ->
       @on 'hit', @, 'break'
 
     draw: (ctx)->
-      ctx.fillStyle = "rgba(0, 0, 0, #{@p.health/5 + 0.2})"
+      color = @p.health/5 + 0.2
+      ctx.fillStyle = "rgba(0, 0, 0, #{color})"
       ctx.fillRect -@p.cx, -@p.cy, @p.w, @p.h
 
     break: (col)->
