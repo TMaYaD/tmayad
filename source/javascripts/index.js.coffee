@@ -8,6 +8,7 @@
 
 POLYGON_POINTS = 6
 RADIUS = 10
+PADDLE_FORCE = 400
 
 $ ->
   width = $('section.stretch').innerWidth()
@@ -63,24 +64,42 @@ $ ->
         y: height - 20
         w: 200
         h: 10
-        v: 0
+        fx: 0
+        gravity: 0
+
+      @add '2d'
       Q.input.on 'left', @, 'left'
+      Q.input.on 'leftUp', @, 'keyUp'
       Q.input.on 'right', @, 'right'
+      Q.input.on 'rightUp', @, 'keyUp'
+      @on 'hit', @, 'hit'
 
     draw: (ctx)->
       ctx.fillStyle = '#99cc00'
       ctx.fillRect -@p.cx, -@p.cy, @p.w, @p.h
 
-    step: (ctx)->
-      @p.x += @p.v
-      @p.v = @p.v / 2
-      @p.x = Math.min(width - 100, Math.max(100, @p.x))
-
     left: ->
-      @p.v = Math.max(@p.v-10, -200)
+      @p.fx = -PADDLE_FORCE
+
+    keyUp: ->
+      @p.fx = 0
 
     right: ->
-      @p.v = Math.min(@p.v+10, 200)
+      @p.fx = PADDLE_FORCE
+
+    step: (dt)->
+      friction = if @p.vx > 0
+          @p.ax = -.6 * PADDLE_FORCE
+        else if @p.vx < 0
+          @p.ax = .6 * PADDLE_FORCE
+        else
+          @p.ax = 0
+      @p.ax = @p.fx + friction
+
+    hit: (col)->
+      if col.obj.isA 'Ball'
+        ball = col.obj.p
+        ball.vx += 0.4 * @p.vx
 
   Q.Sprite.extend 'Brick',
     init: (p)->
