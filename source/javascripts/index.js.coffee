@@ -9,15 +9,6 @@
 POLYGON_POINTS = 6
 RADIUS = 10
 
-BRICK_COLORS = [
-  '#ffffff'
-  '#cccccc'
-  '#999999'
-  '#666666'
-  '#333333'
-  '#000000'
-]
-
 $ ->
   width = $('section.stretch').innerWidth()
   height = $('section.stretch').innerHeight()
@@ -29,14 +20,14 @@ $ ->
 
   Q.input.keyboardControls()
 
-  Q.input.touchControls
-    controls: [
-      ["left", "<"]
-      []
-      []
-      []
-      ["right", ">"]
-    ]
+  # Q.input.touchControls
+  #   controls: [
+  #     ["left", "<"]
+  #     []
+  #     []
+  #     []
+  #     ["right", ">"]
+  #   ]
 
   Q.Sprite.extend 'Ball',
     init: (p)->
@@ -100,7 +91,7 @@ $ ->
       @on 'hit', @, 'break'
 
     draw: (ctx)->
-      ctx.fillStyle = BRICK_COLORS[@p.health]
+      ctx.fillStyle = "rgba(0, 0, 0, #{@p.health/5 + 0.2})"
       ctx.fillRect -@p.cx, -@p.cy, @p.w, @p.h
 
     break: (col)->
