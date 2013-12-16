@@ -10,6 +10,8 @@ POLYGON_POINTS = 6
 RADIUS = 10
 PADDLE_FORCE = 600
 PADDLE_MAX_VELOCITY = 300
+BRICK_HEIGHT = 20
+BRICK_WIDTH = 50
 
 $ ->
   width = $('section.stretch').innerWidth()
@@ -17,6 +19,7 @@ $ ->
   $('canvas').attr
     width: width
     height: height
+
   Q = Quintus().include('Sprites, Scenes, 2D, Input, Kinematics')
     .setup('paranoid')
 
@@ -109,8 +112,8 @@ $ ->
     init: (p)->
       @_super p,
         health: 1
-        w: 48
-        h: 18
+        w: BRICK_WIDTH - 2
+        h: BRICK_HEIGHT - 2
       @on 'hit', @, 'break'
 
     draw: (ctx)->
@@ -124,7 +127,21 @@ $ ->
       if Q('Brick').length == 1
         Q.stageScene 'level1'
       else
-        @stage.remove @ if @p.health == 0
+        @stage.remove @ if @p.health <= 0
+
+  Q.Sprite.extend 'Tab',
+    init: (p)->
+      @_super p,
+        w: 5 * BRICK_WIDTH - 2
+        h: 3 * BRICK_HEIGHT - 2
+      @on 'hit'
+
+    draw: (ctx)->
+      ctx.fillStyle = "rgba(128, 192, 64, 0.8)"
+      ctx.fillRect -@p.cx, -@p.cy, @p.w, @p.h
+
+    hit: (col)->
+      console.log col
 
   Q.scene 'level1', (stage)->
     # Left Wall
@@ -160,21 +177,36 @@ $ ->
       vx: Math.random() * 300 - 150
       vy: Math.random() * 75 + 75
 
-    for i in [1..30]
-      stage.insert new Q.Brick
-        x: Math.round(Math.random() * width * 3 / 200) * 50 + width / 8
-        y: Math.round(Math.random() * height * 3/ 160) * 20 + height / 8
+    stage.insert new Q.Tab
+      x: width/2
+      y: height * 5/16
 
-    for i in [1..20]
-      stage.insert new Q.Brick
-        x: Math.round(Math.random() * width * 3 / 200) * 50 + width / 8
-        y: Math.round(Math.random() * height * 3/ 160) * 20 + height / 8
-        health: 2
+    number_of_bricks = 0.3 * (width * height) * (9 / 32) / (BRICK_HEIGHT * BRICK_WIDTH)
 
-    for i in [1..10]
+    for i in [1..number_of_bricks]
+      xScale = width * 3 / 4
+      xOffset = width * 1 / 2
+      yScale = height * 3 / 8
+      yOffset = height * 5 / 16
+
+      x = (Math.random() - 0.5) * xScale
+      y = (Math.random() - 0.5) * yScale
+
+      while obj = Q.stage().locate(x + xOffset, y + yOffset)
+        x = 2 * x - obj.p.x
+        y = 2 * y - obj.p.y
+
+        if x < -xScale/2 || x > xScale/2
+          x = Math.random() * xScale - xScale/2
+        if y < -yScale/2 || y > yScale/2
+          y = Math.random() * yScale - yScale/2
+
+      x = (Math.round(x / BRICK_WIDTH) * BRICK_WIDTH)
+      y = (Math.round(y / BRICK_HEIGHT) * BRICK_HEIGHT)
+
       stage.insert new Q.Brick
-        x: Math.round(Math.random() * width * 3 / 200) * 50 + width / 8
-        y: Math.round(Math.random() * height * 3/ 160) * 20 + height / 8
-        health: 3
+        x: x + xOffset
+        y: y + yOffset
+        health: Math.floor(Math.random() * 4)
 
   Q.stageScene 'level1'
