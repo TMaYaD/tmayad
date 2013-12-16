@@ -132,16 +132,22 @@ $ ->
   Q.Sprite.extend 'Tab',
     init: (p)->
       @_super p,
-        w: 5 * BRICK_WIDTH - 2
-        h: 3 * BRICK_HEIGHT - 2
+        w: 3 * BRICK_WIDTH - 2
+        h: 2 * BRICK_HEIGHT - 2
+        name: ''
       @on 'hit'
 
     draw: (ctx)->
       ctx.fillStyle = "rgba(128, 192, 64, 0.8)"
       ctx.fillRect -@p.cx, -@p.cy, @p.w, @p.h
+      ctx.fillStyle = '#FFFFFF'
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      ctx.font = "#{@p.h/2}px Roboto"
+      ctx.fillText @p.name, 0, 0
 
     hit: (col)->
-      console.log col
+      location.pathname = @p.location if @p.location
 
   Q.scene 'level1', (stage)->
     # Left Wall
@@ -178,8 +184,16 @@ $ ->
       vy: Math.random() * 75 + 75
 
     stage.insert new Q.Tab
-      x: width/2
-      y: height * 5/16
+      x: width/2 - BRICK_WIDTH * 2
+      y: height * 5/16 - BRICK_HEIGHT/2
+      name: 'Projects'
+      location: '/projects'
+
+    stage.insert new Q.Tab
+      x: width/2 + BRICK_WIDTH * 2
+      y: height * 5/16 - BRICK_HEIGHT/2
+      name: 'Clients'
+      location: '/clients'
 
     number_of_bricks = 0.3 * (width * height) * (9 / 32) / (BRICK_HEIGHT * BRICK_WIDTH)
 
