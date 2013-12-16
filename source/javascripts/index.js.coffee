@@ -54,12 +54,11 @@ $ ->
       ctx.arc(0, 0, @p.cx, 0, 2*Math.PI)
       ctx.fill()
 
-    step: (dt)->
-      #@p.x += @p.dx * dt
-      #@p.y += @p.dy * dt
-
     restart: (col)->
-      Q.stageScene 'level1' if col.obj.isA 'Wall'
+      @p.x = Math.random() * width
+      @p.y = Math.random() * height / 4 + height/2
+      @p.vx = Math.random() * 300 - 150
+      @p.vy = Math.random() * 75 + 75
 
   Q.Sprite.extend 'Wall',
     draw: (ctx)->
@@ -107,6 +106,7 @@ $ ->
       @p.health -= 1
 
       @stage.remove @ if @p.health == 0
+      Q.stageScene 'level1' if Q('Brick').length == 0
 
   Q.scene 'level1', (stage)->
     stage.insert new Q.Wall
