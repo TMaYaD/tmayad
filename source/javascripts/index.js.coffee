@@ -6,13 +6,15 @@
 #= require quintus/lib/quintus_2d
 #= require quintus_kinematics
 
+POLYGON_POINTS = 6
+RADIUS = 10
+
 $ ->
   width = $('section.stretch').innerWidth()
   height = $('section.stretch').innerHeight()
   $('canvas').attr
     width: width
     height: height
-  radius = 10
   Q = Quintus().include('Sprites, Scenes, 2D, Input, Kinematics')
     .setup('paranoid')
     .controls()
@@ -20,16 +22,11 @@ $ ->
   Q.Sprite.extend 'Ball',
     init: (p)->
       @_super p,
-        x: width/2
-        y: height/2
-        w: radius * 2
-        h: radius * 2
-        cx: radius
-        cy: radius
-        vx: 100
-        vy: 100
+        w: RADIUS * 2
+        h: RADIUS * 2
         color: '#000000'
         gravity: 0
+        points: [RADIUS*Math.cos(2*Math.PI*i/POLYGON_POINTS), RADIUS*Math.sin(2*Math.PI*i/POLYGON_POINTS)] for i in [1..POLYGON_POINTS]
       @add '2d, aiBounce, aiVerticalBounce'
       @on 'bump.bottom', @, 'restart'
 
@@ -75,6 +72,22 @@ $ ->
     right: ->
       @p.v = Math.min(@p.v+10, 200)
 
+  Q.Sprite.extend 'Brick',
+    init: (p)->
+      @_super p,
+        health: 1
+        w: 48
+        h: 18
+      @on 'hit', @, 'break'
+
+    draw: (ctx)->
+      ctx.fillRect -@p.cx, -@p.cy, @p.w, @p.h
+
+    break: (col)->
+      @p.health -= 1
+
+      @stage.remove @ if @p.health == 0
+
   Q.scene 'level1', (stage)->
     stage.insert new Q.Wall
       x: 0
@@ -102,8 +115,13 @@ $ ->
 
     stage.insert new Q.Ball
       x: Math.random() * width
-      y: Math.random() * height / 2
+      y: Math.random() * height / 4 + height/2
       vx: Math.random() * 200 - 100
       vy: Math.random() * 50 + 50
+
+    for i in [1..30]
+      stage.insert new Q.Brick
+        x: Math.round(Math.random() * width * 3 / 200) * 50 + width / 8
+        y: Math.round(Math.random() * height / 40) * 20
 
   Q.stageScene 'level1'
