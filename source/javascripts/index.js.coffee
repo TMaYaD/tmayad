@@ -55,10 +55,11 @@ $ ->
       ctx.fill()
 
     restart: (col)->
-      @p.x = Math.random() * width
-      @p.y = Math.random() * height / 4 + height/2
-      @p.vx = Math.random() * 300 - 150
-      @p.vy = Math.random() * 75 + 75
+      if col.obj.isA 'Wall'
+        @p.x = Math.random() * width
+        @p.y = Math.random() * height / 4 + height/2
+        @p.vx = Math.random() * 300 - 150
+        @p.vy = Math.random() * 75 + 75
 
   Q.Sprite.extend 'Wall',
     draw: (ctx)->
