@@ -40,6 +40,11 @@
   "foundation/components/type";
 
 .top-bar .name {
+  margin-left: 45px;
+  @media #{$large-up} {
+    margin-left: 0;
+  }
+
   h1 {
     font-size: $h3-font-size;
     @media #{$large-up} {
