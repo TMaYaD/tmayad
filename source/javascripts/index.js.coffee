@@ -19,12 +19,20 @@ $ ->
     .setup('paranoid')
     .controls()
 
+  Q.input.touchControls
+    controls: [
+      ["left", "<"]
+      []
+      []
+      []
+      ["right", ">"]
+    ]
+
   Q.Sprite.extend 'Ball',
     init: (p)->
       @_super p,
         w: RADIUS * 2
         h: RADIUS * 2
-        color: '#000000'
         gravity: 0
         points: [RADIUS*Math.cos(2*Math.PI*i/POLYGON_POINTS), RADIUS*Math.sin(2*Math.PI*i/POLYGON_POINTS)] for i in [1..POLYGON_POINTS]
       @add '2d, aiBounce, aiVerticalBounce'
@@ -32,7 +40,7 @@ $ ->
 
     draw: (ctx)->
       ctx.beginPath()
-      ctx.fillStyle = @p.color
+      ctx.fillStyle = '#0099CC'
       ctx.arc(0, 0, @p.cx, 0, 2*Math.PI)
       ctx.fill()
 
@@ -59,6 +67,7 @@ $ ->
       Q.input.on 'right', @, 'right'
 
     draw: (ctx)->
+      ctx.fillStyle = '#99cc00'
       ctx.fillRect -@p.cx, -@p.cy, @p.w, @p.h
 
     step: (ctx)->
@@ -81,6 +90,7 @@ $ ->
       @on 'hit', @, 'break'
 
     draw: (ctx)->
+      ctx.fillStyle = '#666666'
       ctx.fillRect -@p.cx, -@p.cy, @p.w, @p.h
 
     break: (col)->
@@ -116,12 +126,12 @@ $ ->
     stage.insert new Q.Ball
       x: Math.random() * width
       y: Math.random() * height / 4 + height/2
-      vx: Math.random() * 200 - 100
-      vy: Math.random() * 50 + 50
+      vx: Math.random() * 300 - 150
+      vy: Math.random() * 75 + 75
 
     for i in [1..30]
       stage.insert new Q.Brick
         x: Math.round(Math.random() * width * 3 / 200) * 50 + width / 8
-        y: Math.round(Math.random() * height / 40) * 20
+        y: Math.round(Math.random() * height * 3/ 160) * 20 + height / 8
 
   Q.stageScene 'level1'
