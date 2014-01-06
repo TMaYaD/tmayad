@@ -48,6 +48,8 @@ Dotenv.load
 #   end
 # end
 
+ignore '*.swp'
+ignore '*~'
 activate :sprockets
 sprockets.append_path File.join "#{root}", "bower_components"
 sprockets.append_path File.join "#{root}", "bower_components/foundation/scss"

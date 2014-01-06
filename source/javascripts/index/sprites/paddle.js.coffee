@@ -46,6 +46,6 @@ Quintus.Paddle = (Q)->
 
       @p.y = Q.height - 20
 
-Quintus.Paddle.FORCE = 600
-Quintus.Paddle.MAX_VELOCITY = 300
+Quintus.Paddle.FORCE = 900
+Quintus.Paddle.MAX_VELOCITY = 500
 

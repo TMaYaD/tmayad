@@ -13,6 +13,7 @@ gem 'middleman-minify-html'
 gem 'middleman-sprockets'
 
 
+gem 'builder'
 gem 'haml'
 gem 'sass'
 

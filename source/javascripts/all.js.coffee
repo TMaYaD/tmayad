@@ -4,7 +4,10 @@
 #= require foundation/foundation
 #= require foundation/foundation.offcanvas
 #
+#= require_self
 # require_tree .
+#
+#= require google_analytics
 
 $ ->
   $(document).foundation()

@@ -289,6 +289,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  builder
   dotenv
   haml
   image_optim
