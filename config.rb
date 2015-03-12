@@ -3,10 +3,6 @@ Dotenv.load
 # Compass
 ###
 
-# Susy grids in Compass
-# First: gem install susy
-# require 'susy'
-
 # Change Compass configuration
 # compass_config do |config|
 #   config.output_style = :compact
@@ -29,10 +25,9 @@ Dotenv.load
 #   page "/admin/*"
 # end
 
-# Proxy (fake) files
-# page "/this-page-has-no-template.html", :proxy => "/template-file.html" do
-#   @which_fake_page = "Rendering a fake page with a variable"
-# end
+# Proxy pages (https://middlemanapp.com/advanced/dynamic_pages/)
+# proxy "/this-page-has-no-template.html", "/template-file.html", :locals => {
+#  :which_fake_page => "Rendering a fake page with a local variable" }
 
 ###
 # Helpers
@@ -40,6 +35,11 @@ Dotenv.load
 
 # Automatic image dimensions on image_tag helper
 # activate :automatic_image_sizes
+
+# Reload the browser automatically whenever files change
+configure :development do
+  activate :livereload
+end
 
 # Methods defined in the helpers block are available in templates
 # helpers do
@@ -50,7 +50,7 @@ Dotenv.load
 
 ignore '*.swp'
 ignore '*~'
-activate :sprockets
+
 sprockets.append_path File.join "#{root}", "bower_components"
 sprockets.append_path File.join "#{root}", "bower_components/foundation/scss"
 sprockets.append_path File.join "#{root}", "bower_components/foundation/js"
@@ -58,8 +58,6 @@ sprockets.append_path File.join "#{root}", "bower_components/foundation/js"
 activate :blog
 
 activate :blog_editor
-
-activate :livereload
 
 # Build-specific configuration
 configure :build do
@@ -73,23 +71,26 @@ configure :build do
   activate :minify_html
 
   # Enable cache buster
-  activate :cache_buster
+  activate :asset_hash
 
   # Use relative URLs
   activate :relative_assets
 
   # Compress PNGs after build
-  # First: gem install middleman-smusher
-  # require "middleman-smusher"
   activate :imageoptim
 
   # Or use a different image path
-  # set :http_path, "/Content/images/"
+  # set :http_prefix, "/Content/images/"
 
   activate :gzip
 
-  activate :favicon_maker,
-            favicon_maker_base_image: "images/favicon.png"
+  # activate :favicon_maker, :icons => {
+  #   "_favicon_template.png" => [
+  #     { icon: "apple-touch-icon-152x152-precomposed.png" },
+  #     { icon: "apple-touch-icon-114x114-precomposed.png" },
+  #     { icon: "apple-touch-icon-72x72-precomposed.png" },
+  #   ]
+  # }
 end
 
 activate :s3_sync do |s3_sync|
@@ -108,5 +109,3 @@ end
 #   cloudfront.distribution_id   = 'E3E0TLTQTS8L1F'
 #   cloudfront.after_build       = false
 # end
-
-

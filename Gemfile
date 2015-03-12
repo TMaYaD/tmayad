@@ -1,17 +1,18 @@
 # If you have OpenSSL installed, we recommend updating
 # the following line to use 'https'
 source 'http://rubygems.org'
-source "http://tmayad:kvc2R9LVcsMPinndSQT4@gems.tdreyno.com/"
 
 gem 'middleman'
 gem 'middleman-blog'
-gem 'middleman-blog-editor'
 gem 'middleman-favicon-maker'
 gem 'middleman-imageoptim', github: 'plasticine/middleman-imageoptim'
   gem 'image_optim'
 gem 'middleman-minify-html'
 gem 'middleman-sprockets'
 
+source 'http://tmayad:kvc2R9LVcsMPinndSQT4@gems.tdreyno.com/' do
+  gem 'middleman-blog-editor'
+end
 
 gem 'builder'
 gem 'haml'
