@@ -14,4 +14,7 @@ $topbar-link-bg-hover: mix($primary-color, white, 20%);
 
 $tabbar-menu-icon-color: $primary-color;
 
+$include-html-classes: true;
+$include-html-top-bar-classes: true;
+
 @import 'foundation/settings';

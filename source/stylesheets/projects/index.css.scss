@@ -18,10 +18,9 @@
       &:nth-child(#{$n}n + #{$i}):hover {
         $hue: 360 * ($i + $offset) / $n;
         background-color: hsla($hue, 100, 50, 0.2);
-        @include single-box-shadow(hsla($hue, 100, 50, 0.8));
+        @include single-box-shadow(null, null, null, null, hsla($hue, 100, 50, 0.8));
       }
     }
 
   }
 }
-
